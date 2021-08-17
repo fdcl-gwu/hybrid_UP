@@ -1,4 +1,4 @@
-function [ stat, MFG ] = pendulum_continuous( path, use_mex, method, FP, getc, f0 )
+function [ stat, MFG ] = pendulum_continuous( path, use_mex, method, getc, f0 )
 
 addpath('../rotation3d');
 addpath('../matrix Fisher');
@@ -101,9 +101,6 @@ end
 
 % derivatives
 u = getu(lmax);
-if FP == 32
-    u = single(u);
-end
 
 % Fourier transform of x
 if use_mex
@@ -122,17 +119,11 @@ mR = [permute(R(3,2,:,:,:),[1,3,4,5,2]);permute(-R(3,1,:,:,:),[1,3,4,5,2])];
 % damping
 b = [0.2;0.2];
 bt = b*tscale;
-if FP == 32
-    bt = single(bt);
-end
 
 % noise
 H = eye(2)*1;
 Ht = H*tscale^(3/2);
 G = 0.5*(Ht*Ht.');
-if FP == 32
-    G = single(G);
-end
 
 %% color settings
 if getc
