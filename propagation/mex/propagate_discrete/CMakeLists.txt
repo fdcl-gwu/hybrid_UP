@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(discrete_propagation LANGUAGES CXX CUDA)
+project(propagate_discrete LANGUAGES CXX CUDA)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CUDA_STANDARD 14)
@@ -68,7 +68,7 @@ matlab_add_mex(
 )
 
 matlab_add_mex(
-    NAME pendulum_reduced_discrete_propagate
+    NAME propagate_discrete_mex
     SRC ${src_dir}/mexPropagate.cpp
     LINK_TO propagate
     R2018a

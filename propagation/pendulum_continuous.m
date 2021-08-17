@@ -206,7 +206,7 @@ EvRvR = zeros(3,3,Nt);
     = get_stat(f,R,x,w);
 
 if getc
-    c = pendulum_plot_getc(f,e,L);
+    c = getColor_mex(f,e,L);
     c = reshape(c,Nt1,Nt2,3);
 
     c = c/max(c(:));
@@ -230,7 +230,7 @@ for nt = 1:Nt-1
     
     % propagating Fourier coefficients
     if use_mex
-        F = pendulum_propagate_reduced_den(F,f,X,mR,bt,G,dtt,L,u,d,w,method);
+        F = propagate_continuous_mex(F,f,X,mR,bt,G,dtt,L,u,d,w,method);
     else
         F = integrate(F,f,X,mR,bt,G,dtt,L,u,d,w,method);
     end
@@ -269,7 +269,7 @@ for nt = 1:Nt-1
     
     % get color
     if getc
-        c = pendulum_plot_getc(f,e,L);
+        c = getc_mex(f,e,L);
         c = reshape(c,Nt1,Nt2,3);
         
         c = c/max(c(:));

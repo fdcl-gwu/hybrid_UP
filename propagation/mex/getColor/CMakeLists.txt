@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(pendulum_plot_getc LANGUAGES CXX)
+project(getColor LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -21,7 +21,7 @@ target_link_libraries(getc fftw3)
 
 # compile mex
 matlab_add_mex(
-    NAME pendulum_plot_getc
+    NAME getColor_mex
     SRC ${src_dir}/mexFunction.cpp
     LINK_TO getc
     R2018a

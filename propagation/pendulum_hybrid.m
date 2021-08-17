@@ -4,7 +4,6 @@ addpath('../rotation3d');
 addpath('../matrix Fisher');
 addpath('..');
 addpath('mex');
-addpath('discrete/mex');
 
 if ~exist('method','var') || isempty(method)
     method = 'euler';
@@ -202,7 +201,7 @@ EvRvR = zeros(3,3,Nt);
     U(:,:,1),S(:,:,1),V(:,:,1),P(:,:,1),Miu(:,1),Sigma(:,:,1),fx] = get_stat(f,R,x,w);
 
 if getc
-    c = pendulum_plot_getc(f,e,L);
+    c = getColor_mex(f,e,L);
     c = reshape(c,Nt1,Nt2,3);
 
     c = c/max(c(:));
@@ -225,11 +224,11 @@ for nt = 1:Nt-1
     tic;
     
     % continuous propagation
-    F = pendulum_propagate_reduced_den(F,f,X,mR,bt,G,dtt,L,u,d,w,method);
+    F = propagate_continuous_mex(F,f,X,mR,bt,G,dtt,L,u,d,w,method);
     f = fftSO3R_mex('backward',F,d);
     
     % discrete propagation
-    df = pendulum_reduced_discrete_propagate(true,f,lambda,lambda_indR,fcL,fcL_indx);
+    df = propagate_discrete_mex(true,f,lambda,lambda_indR,fcL,fcL_indx);
     f = f + df*dtt;
     F = fftSO3R_mex('forward',f,d,w);
     
@@ -239,7 +238,7 @@ for nt = 1:Nt-1
         = get_stat(f,R,x,w);
     
     if getc
-        c = pendulum_plot_getc(f,e,L);
+        c = getColor_mex(f,e,L);
         c = reshape(c,Nt1,Nt2,3);
         
         c = c/max(c(:));
