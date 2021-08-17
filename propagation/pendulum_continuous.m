@@ -165,7 +165,7 @@ if saveToFile
 end
 
 % initial Fourier transform
-if use_mex && FP==64
+if use_mex
     F = fftSO3R_mex('forward',f,d,w);
 else
     F1 = zeros(2*BR,2*BR,2*BR,2*Bx,2*Bx);

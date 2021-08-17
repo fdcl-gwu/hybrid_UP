@@ -10,15 +10,15 @@ set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -std=c++11")
 set(CMAKE_CXX_STANDARD 11)
 
 matlab_add_mex(
-    NAME fftSO3R
+    NAME fftSO3R_mex
     SRC kernel.cu setup.cu
     LINK_TO cufft
     R2018a
 )
 
-set_property(TARGET fftSO3R PROPERTY CUDA_ARCHITECTURES 80)
+set_property(TARGET fftSO3R_mex PROPERTY CUDA_ARCHITECTURES 80)
 
 include_directories(~/libcutensor/include)
 
-target_link_libraries(fftSO3R ~/libcutensor/lib/11/libcutensor.so)
+target_link_libraries(fftSO3R_mex ~/libcutensor/lib/11/libcutensor.so)
 
